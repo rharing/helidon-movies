@@ -1,26 +1,35 @@
 package org.redlich.movies;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Movie implements Serializable {
-    private int id;
+    private Integer id;
+    @NotEmpty
     private String title;
+    @NotEmpty
     private int year;
 
-    public static Movie of(int id, String title, int year) {
+    public static Movie of( String title, int year) {
         Movie movie = new Movie();
-        movie.setId(id);
         movie.setTitle(title);
         movie.setYear(year);
-
+        return movie;
+    }
+    public static Movie of(int id, String title, int year) {
+        Movie movie = of(title, year);
+        movie.setId(id);
         return movie;
         }
 
-    public int getId() {
+    public Integer getId() {
         return id;
         }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
         }
 

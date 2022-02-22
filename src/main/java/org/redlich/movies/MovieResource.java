@@ -16,7 +16,7 @@ import static javax.ws.rs.core.Response.*;
 @Path("/movies")
 @RequestScoped
 public class MovieResource {
-    private final static Logger LOGGER = Logger.getLogger(MovieResource.class.getName());
+    private final static final Logger LOGGER = Logger.getLogger(MovieResource.class.getName());
 
     private final MovieRepository movies;
 
@@ -40,7 +40,7 @@ public class MovieResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response savePost(@Valid Movie movie) {
-        Movie saved = this.movies.save(Movie.of(movie.getId(),movie.getTitle(),movie.getYear()));
+        Movie saved = this.movies.save(Movie.of(movie.getTitle(),movie.getYear()));
         return created(
                 uriInfo.getBaseUriBuilder()
                         .path("/movies/{id}")
@@ -67,7 +67,7 @@ public class MovieResource {
         existed.setTitle(movie.getTitle());
         existed.setYear(movie.getYear());
 
-        Movie saved = this.movies.save(existed);
+        this.movies.save(existed);
         return noContent().build();
         }
 
