@@ -16,7 +16,7 @@ import static javax.ws.rs.core.Response.*;
 @Path("/movies")
 @RequestScoped
 public class MovieResource {
-    private final static final Logger LOGGER = Logger.getLogger(MovieResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MovieResource.class.getName());
 
     private final MovieRepository movies;
 
