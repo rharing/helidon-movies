@@ -49,7 +49,7 @@ public class MovieResource {
     public Response savePost(Movie movie) {
         Set<ConstraintViolation<Movie>> validate = validator.validate(movie);
         if (CollectionUtils.isNotEmpty(validate)){
-
+            for(ConstraintViolation violation: validate.
         }
         Movie saved = this.movies.save(Movie.of(movie.getTitle(),movie.getYear()));
         return created(
