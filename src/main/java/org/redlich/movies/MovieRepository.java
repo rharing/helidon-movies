@@ -58,4 +58,11 @@ public class MovieRepository {
     public void deleteById(int id) {
         data.remove(id);
     }
+
+    public void reset(List<Movie> movies) {
+        data = new ConcurrentHashMap<>();
+        for( Movie movie: movies){
+            this.save(movie);
+        }
+    }
 }

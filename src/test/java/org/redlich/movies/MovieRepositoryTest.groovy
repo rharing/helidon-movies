@@ -25,4 +25,13 @@ class MovieRepositoryTest extends spock.lang.Specification {
         saved != null
         saved.id == 10
     }
+    def "adding a movie with invalid content should be possible as the movieresource checkes the content and not the service booo"(){
+        given:
+        MovieRepository repository = new MovieRepository();
+        when:
+        Movie saved = repository.save(new Movie(title:"the last dupe"))
+        then:
+        saved != null
+        saved.id == 10
+    }
 }

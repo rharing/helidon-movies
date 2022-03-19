@@ -12,6 +12,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -48,8 +51,12 @@ public class MovieResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response savePost(Movie movie) {
         Set<ConstraintViolation<Movie>> validate = validator.validate(movie);
+        Map<String, String> messages = new HashMap<>();
         if (CollectionUtils.isNotEmpty(validate)){
-            for(ConstraintViolation violation: validate.
+            for(ConstraintViolation violation: validate){
+                messages.put(violation.getPropertyPath().toString(),violation.getMessage());
+            }
+            return Response.status(400).entity(messages).build();
         }
         Movie saved = this.movies.save(Movie.of(movie.getTitle(),movie.getYear()));
         return created(
@@ -80,7 +87,14 @@ public class MovieResource {
 
         this.movies.save(existed);
         return noContent().build();
-        }
+    }
+    @Path("/import")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateMovie(List<Movie> movies) {
+        this.movies.reset(movies);
+        return noContent().build();
+    }
 
     @Path("{id}")
     @DELETE
