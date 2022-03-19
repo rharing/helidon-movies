@@ -1,0 +1,11 @@
+
+. testen waarom
+. Karate
+. helidon movies
+.. eerst zonder validaties
+.. met validaties
+.. massive import voor de json manipulaties
+
+. spock
+.. we blijven nog even in de helidon movies
+. codecept/cypress
